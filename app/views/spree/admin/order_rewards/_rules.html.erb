@@ -1,0 +1,44 @@
+<div class="panel-heading">
+  <h1 class="panel-title">
+    <%= Spree.t(:rules) %>
+  </h1>
+</div>
+<div id="rule_fields" class="panel-body">
+  <%= form_tag spree.admin_order_reward_order_reward_rules_path(@order_reward),
+               remote: true, id: 'new_product_rule_form' do %>
+    <div class="form-group">
+      <%= label_tag :order_reward_rule_type, Spree.t(:add_rule_of_type) %>
+      <%= select_tag('order_reward_rule[type]', options_for_order_reward_rule_types(@order_reward), :class => 'select2') %>
+    </div>
+    <div class="form-actions">
+      <%= button Spree.t(:add), 'plus', 'submit', class: "btn-success" %>
+    </div>
+  <% end %>
+
+  <%= form_for @order_reward, :url => object_url, :method => :put do |f| %>
+    <div id="order_reward-policy-select">
+      <% Spree::OrderReward::MATCH_POLICIES.each do |policy| %>
+        <div class="radio">
+          <% # = f.label "match_policy_#{policy}" do %>
+            <% # = f.radio_button :match_policy, policy %>
+            <% # = Spree.t "order_reward_form.match_policies.#{policy}" %>
+          <% # end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="rules" class="filter_list margint">
+      <% if @order_reward.rules.any? %>
+        <%= render :partial => 'order_reward_rule', :collection => @order_reward.rules, :locals => {} %>
+      <% else %>
+        <div class="alert alert-warning">
+          <%= Spree.t(:no_rules_added) %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="order_reward-update actions">
+      <%= button Spree.t('actions.update'), 'ok' %>
+    </div>
+  <% end %>
+</div>

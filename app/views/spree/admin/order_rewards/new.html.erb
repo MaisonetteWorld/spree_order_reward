@@ -1,0 +1,11 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:order_rewards), admin_order_rewards_url %> /
+  <%= Spree.t(:new_order_reward) %>
+<% end %>
+
+<%= form_for :order_reward, :url => collection_url do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <div class="text-center">
+    <%= render :partial => 'spree/admin/shared/new_resource_links' %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="order_reward_action order_reward-block <%= order_reward_action.type.to_s.demodulize.underscore %> panel panel-default" id="<%= dom_id order_reward_action %>">
+  <% type_name = order_reward_action.class.name.demodulize.underscore %>
+  <div class="panel-heading">
+    <%= link_to_with_icon 'delete', '', spree.admin_order_reward_order_reward_action_path(@order_reward, order_reward_action), remote: true, method: :delete, class: 'delete pull-right' %>
+    <h3 class="panel-title order_reward-title"><%= Spree.t("order_reward_action_types.#{type_name}.description") %></h3>
+  </div>
+  <% param_prefix = "order_reward[order_reward_actions_attributes][#{order_reward_action.id}]" %>
+  <%= hidden_field_tag "#{param_prefix}[id]", order_reward_action.id %>
+  <%= render partial: "spree/admin/order_rewards/actions/#{type_name}",
+             locals: { order_reward_action: order_reward_action, param_prefix: param_prefix } %>
+</div>

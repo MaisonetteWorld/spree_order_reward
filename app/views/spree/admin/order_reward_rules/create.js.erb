@@ -1,0 +1,10 @@
+$('#rules').append('<%= escape_javascript( render(partial: 'spree/admin/order_rewards/order_reward_rule', object: @order_reward_rule) ) %>');
+$('#rules .no-objects-found').hide();
+
+$('.product_picker').productAutocomplete();
+$('.user_picker').userAutocomplete();
+
+$('#order_reward_rule_type').html('<%= escape_javascript options_for_order_reward_rule_types(@order_reward) %>');
+$('#order_reward_rule_type').select2();
+
+set_taxon_select('#product_taxon_ids')

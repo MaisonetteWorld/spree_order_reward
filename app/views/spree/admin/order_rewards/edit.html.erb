@@ -1,0 +1,30 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:order_rewards), admin_order_rewards_url %> /
+  <%= @order_reward.name %>
+<% end %>
+
+<%= form_for @order_reward, :url => object_url, :method => :put do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render :partial => 'form', :locals => { :f => f } %>
+      <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+    </div>
+  </div>
+
+<% end %>
+
+<div id="order_reward-filters" class="row">
+  <div id="rules_container" class="col-md-6">
+    <div class="panel panel-default">
+      <%= render :partial => 'rules' %>
+    </div>
+  </div>
+
+  <div id="actions_container" class="col-md-6">
+    <div class="panel panel-default">
+      <%= render :partial => 'actions' %>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => "spree/admin/variants/autocomplete", :formats => [:js] %>

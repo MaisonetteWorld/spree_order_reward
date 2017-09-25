@@ -1,0 +1,3 @@
+$('#<%= dom_id @order_reward_rule %>').fadeOut().remove();
+
+$('#order_reward_rule_type').html('<%= escape_javascript options_for_order_reward_rule_types(@order_reward) %>');

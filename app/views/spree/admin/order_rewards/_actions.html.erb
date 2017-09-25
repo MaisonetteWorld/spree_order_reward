@@ -1,0 +1,35 @@
+<div class="panel-heading">
+  <h1 class="panel-title">
+    <%= Spree.t(:order_reward_actions) %>
+  </h1>
+</div>
+<div id="action_fields" class="panel-body">
+  <%= form_tag spree.admin_order_reward_order_reward_actions_path(@order_reward), :remote => true, :id => 'new_order_reward_action_form' do %>
+    <% choices = Rails.application.config.spree.order_rewards.actions.map(&:name).map do |name| [ name.demodulize.titleize, name] end %>
+    <% options = options_for_select(choices) %>
+    <div class="form-group">
+      <%= label_tag :action_type, Spree.t(:add_action_of_type)%>
+      <%= select_tag 'action_type', options, :class => 'select2' %>
+    </div>
+    <div class="form-actions">
+      <%= button Spree.t(:add), 'plus', 'submit', class: "btn-success" %>
+    </div>
+
+  <% end %>
+
+  <%= form_for @order_reward, :url => spree.admin_order_reward_path(@order_reward), :method => :put do |f| %>
+    <div id="actions" class="filter_list margint">
+      <% if @order_reward.actions.any? %>
+        <%= render :partial => 'order_reward_action',  :collection => @order_reward.actions %>
+      <% else %>
+        <div class="alert alert-warning">
+          <%= Spree.t(:no_actions_added) %>
+        </div>
+      <% end %>
+    </div>
+    <div class="actions order_reward-update">
+      <%= button Spree.t('actions.update'), 'save' %>
+    </div>
+  <% end %>
+
+</div>

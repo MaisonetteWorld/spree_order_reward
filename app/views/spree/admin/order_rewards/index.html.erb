@@ -1,0 +1,60 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::OrderReward) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_order_reward), new_object_url, :class => "btn-success", :icon => 'add' %>
+<% end %>
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_order_rewards_index_search">
+    <%= search_form_for [:admin, @search] do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= label_tag :q_name_cont, Spree.t(:name) %>
+            <%= f.text_field :name_cont, tabindex: 1, class: "form-control js-quick-search-target" %>
+          </div>
+      </div>
+
+      <div data-hook="admin_order_rewards_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:filter_results), 'search' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= paginate @order_rewards %>
+
+<% if @order_rewards.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:description) %></th>
+        <th><%= Spree.t(:usage_limit) %></th>
+        <th><%= Spree.t(:expiration) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order_rewards.each do |order_reward| %>
+        <tr id="<%= spree_dom_id order_reward %>">
+          <td><%= link_to order_reward.name, edit_admin_order_reward_path(order_reward) %></td>
+          <td><%= order_reward.description %></td>
+          <td><%= order_reward.usage_limit.nil? ? "∞" : order_reward.usage_limit  %></td>
+          <td><%= order_reward.expires_at.to_date.to_s(:short_date) if order_reward.expires_at %></td>
+          <td class="actions actions-2">
+            <%= link_to_edit order_reward, :no_text => true %>
+            <%= link_to_delete order_reward, :no_text => true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::OrderReward)) %>,
+    <%= link_to Spree.t(:add_one), new_object_url %>!
+  </div>
+<% end %>

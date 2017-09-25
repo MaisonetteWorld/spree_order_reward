@@ -1,0 +1,5 @@
+en:
+  spree:
+    order_reward_action_types:
+      store_credit:
+        description: 'Store Credit Action'
