@@ -28,7 +28,7 @@ module Spree
       end
 
       def order_reward_includes
-        [:order_rewards]
+        [:order_reward_actions]
       end
     end
   end
