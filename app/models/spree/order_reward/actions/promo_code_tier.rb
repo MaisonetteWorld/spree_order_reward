@@ -14,8 +14,8 @@ module Spree
 
         def eligible?(order)
           order.user.present? &&
-            (preferred_from.blank? || preferred_from >= order.item_total) &&
-            (preferred_to.blank? || preferred_to < order.item_total)
+            (preferred_from.blank? || preferred_from <= order.item_total) &&
+            (preferred_to.blank? || preferred_to > order.item_total)
         end
       end
     end
