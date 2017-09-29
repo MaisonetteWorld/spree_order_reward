@@ -15,6 +15,7 @@
             <%= label_tag :q_name_cont, Spree.t(:name) %>
             <%= f.text_field :name_cont, tabindex: 1, class: "form-control js-quick-search-target" %>
           </div>
+        </div>
       </div>
 
       <div data-hook="admin_order_rewards_index_search_buttons" class="form-actions">
@@ -32,7 +33,6 @@
       <tr>
         <th><%= Spree.t(:name) %></th>
         <th><%= Spree.t(:description) %></th>
-        <th><%= Spree.t(:usage_limit) %></th>
         <th><%= Spree.t(:expiration) %></th>
         <th class="actions"></th>
       </tr>
@@ -42,7 +42,6 @@
         <tr id="<%= spree_dom_id order_reward %>">
           <td><%= link_to order_reward.name, edit_admin_order_reward_path(order_reward) %></td>
           <td><%= order_reward.description %></td>
-          <td><%= order_reward.usage_limit.nil? ? "∞" : order_reward.usage_limit  %></td>
           <td><%= order_reward.expires_at.to_date.to_s(:short_date) if order_reward.expires_at %></td>
           <td class="actions actions-2">
             <%= link_to_edit order_reward, :no_text => true %>

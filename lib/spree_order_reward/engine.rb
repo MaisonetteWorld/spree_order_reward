@@ -32,7 +32,11 @@ module SpreeOrderReward
       ]
       Rails.application.config.spree.order_rewards.actions.concat [
         Spree::OrderReward::Actions::PromoCode,
-        Spree::OrderReward::Actions::StoreCredit
+        Spree::OrderReward::Actions::PromoCodeForEvery,
+        Spree::OrderReward::Actions::PromoCodeTier,
+        Spree::OrderReward::Actions::StoreCredit,
+        Spree::OrderReward::Actions::StoreCreditForEvery,
+        Spree::OrderReward::Actions::StoreCreditTier
       ]
     end
   end

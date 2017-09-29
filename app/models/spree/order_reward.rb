@@ -11,14 +11,19 @@ module Spree
     accepts_nested_attributes_for :order_reward_actions, :order_reward_rules
     validates :name, presence: true
 
+    def any_action_applies?(order)
+      actions.any? { |action| action.eligible?(order) }
+    end
+
     def any_rule_applies?(order)
-      rules.any? { |rule| rule_applies?(order, rule) }
+      return true if rules.empty?
+      rules.any? { |rule| rule.eligible?(order) }
     end
 
     def eligible?(order)
       # check if order is eligible for the reward
       return false if expired?
-      any_rule_applies?(order)
+      any_rule_applies?(order) && any_action_applies?(order)
     end
 
     def expired?
@@ -31,22 +36,21 @@ module Spree
 
     def reward(order)
       # reward order user with the reward
-      binding.pry
       actions.each do |action|
-        action.perform(order: order)
+        if action.eligible?(order)
+          action.perform(order)
+        end
       end
     end
 
-    def reward_description(order, action_delimiter = " ")
+    def reward_result_description(order, action_delimiter = " ")
       return unless eligible?(order)
       action_description = actions.map do |action|
         action.customer_description(order)
-      end.join(action_delimiter)
-      "#{name}: #{action_description}"
-    end
+      end.reject(&:blank?).join(action_delimiter)
 
-    def rule_applies?(order, rule)
-      rule.eligible?(order)
+      return if action_description.blank?
+      "#{name}: #{action_description}"
     end
   end
 end

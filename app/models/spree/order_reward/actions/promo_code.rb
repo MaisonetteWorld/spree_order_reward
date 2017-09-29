@@ -2,11 +2,12 @@ module Spree
   class OrderReward
     module Actions
       class PromoCode < OrderRewardAction
-        preference :amount, :decimal, default: 0
-        preference :for_every, :decimal, default: 0
+        include PromoCode::Base
 
-        def customer_description(order)
-          ''
+        preference :amount, :decimal, default: 0
+
+        def calculate_amount(_order)
+          preferred_amount
         end
       end
     end

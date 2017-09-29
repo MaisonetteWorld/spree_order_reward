@@ -2,4 +2,14 @@ en:
   spree:
     order_reward_action_types:
       store_credit:
-        description: 'Store Credit Action'
+        description: 'Store Credit Base'
+      store_credit_tier:
+        description: 'Store Credit Give X Between A-B'
+      store_credit_for_every:
+        description: 'Store Credit Give X For Every Y'
+      promo_code:
+        description: 'Promo Code Base'
+      promo_code_tier:
+        description: 'Promo Code Give X Between A-B'
+      promo_code_for_every:
+        description: 'Promo Code Give X For Every Y'

@@ -16,7 +16,7 @@
     </div>
 
   <% end %>
-
+  <div class="radio"></div><div class="radio"></div>
   <%= form_for @order_reward, :url => spree.admin_order_reward_path(@order_reward), :method => :put do |f| %>
     <div id="actions" class="filter_list margint">
       <% if @order_reward.actions.any? %>

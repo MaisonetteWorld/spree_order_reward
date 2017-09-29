@@ -21,30 +21,30 @@ module Spree
         private
 
         def eligible_max?(order)
-          order.item_total.send(selected_operator_max, selected_amount(preffered_amount_max))
+          order.item_total.send(selected_operator_max, selected_amount(preferred_amount_max))
         end
 
         def eligible_min?(order)
-          order.item_total.send(selected_operator_min, selected_amount(preffered_amount_min))
+          order.item_total.send(selected_operator_min, selected_amount(preferred_amount_min))
         end
 
-        def formatted_amount(preffered_amount)
-          Spree::Money.new(preffered_amount).to_s
+        def formatted_amount(preferred_amount)
+          Spree::Money.new(preferred_amount).to_s
         end
 
         def ineligible_message_max
           if preferred_operator_max == 'gte'
-            eligibility_error_message(:item_total_more_than_or_equal, amount: formatted_amount(preffered_amount_max))
+            eligibility_error_message(:item_total_more_than_or_equal, amount: formatted_amount(preferred_amount_max))
           else
-            eligibility_error_message(:item_total_more_than, amount: formatted_amount(preffered_amount_max))
+            eligibility_error_message(:item_total_more_than, amount: formatted_amount(preferred_amount_max))
           end
         end
 
         def ineligible_message_min
           if preferred_operator_min == 'gte'
-            eligibility_error_message(:item_total_less_than, amount: formatted_amount(preffered_amount_min))
+            eligibility_error_message(:item_total_less_than, amount: formatted_amount(preferred_amount_min))
           else
-            eligibility_error_message(:item_total_less_than_or_equal, amount: formatted_amount(preffered_amount_min))
+            eligibility_error_message(:item_total_less_than_or_equal, amount: formatted_amount(preferred_amount_min))
           end
         end
 
