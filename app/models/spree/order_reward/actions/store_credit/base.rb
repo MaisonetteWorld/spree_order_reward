@@ -38,7 +38,7 @@ module Spree
           private
 
           def prepare_store_credit(order, amount, options)
-            category = options[:category] || Spree::StoreCreditCategory.first
+            category = options[:category] || Spree::StoreCreditCategory.find_or_create_by(name: 'Order Reward')
             Spree::StoreCredit.new(
               user: order.user,
               amount: amount,

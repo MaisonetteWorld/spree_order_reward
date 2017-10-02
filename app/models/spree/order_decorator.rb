@@ -21,5 +21,17 @@ module Spree
         order_reward.reward_result_description(self, action_delimiter)
       end.reject(&:blank?).join(delimiter)
     end
+
+    def order_rewards_amounts
+      order_amounts = {}
+      eligible_order_rewards.each do |order_reward|
+        order_reward_amounts = order_reward.reward_result_amounts(self)
+        order_reward_amounts.each do |key, value|
+          order_amounts[key] = 0 if order_amounts[key].blank?
+          order_amounts[key] += value
+        end
+      end
+      order_amounts
+    end
   end
 end

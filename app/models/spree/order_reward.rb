@@ -52,5 +52,18 @@ module Spree
       return if action_description.blank?
       "#{name}: #{action_description}"
     end
+
+    def reward_result_amounts(order)
+      amounts = {}
+      return amounts unless eligible?(order)
+
+      actions.each do |action|
+        next unless action.eligible?(order)
+        action_type = action.class.name.demodulize.titleize
+        action_amount = action.calculate_amount(order)
+        amounts[action_type] = amounts[action_type] ? amounts[action_type] + action_amount : action_amount
+      end
+      amounts
+    end
   end
 end
