@@ -1,0 +1,12 @@
+
+<div class="panel-body calculator-fields">
+  <div class="row no-marginb">
+    <% unless order_reward_action.new_record? %>
+      <div class="form-group col-md-12 no-marginb settings">
+        <label>Amount</label>
+        <%= text_field_tag "#{param_prefix}[preferred_amount]", (order_reward_action.preferred_amount), class: 'form-control marginb', placeholder: 'Amount' %>
+        <%= hidden_field_tag "#{param_prefix}[id]", order_reward_action.id %>
+      </div>
+    <% end %>
+  </div>
+</div>
