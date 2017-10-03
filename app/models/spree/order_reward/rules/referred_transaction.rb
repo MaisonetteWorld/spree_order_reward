@@ -5,8 +5,10 @@ module Spree
     module Rules
       class ReferredTransaction < OrderRewardRule
 
-
-        def eligible?(order, _options = {})
+        def eligible?(order, options = {})
+          if !completed_orders(order).blank? && completed_orders(order).first != order
+            eligibility_errors.add(:base, eligibility_error_message(:not_first_order))
+          end
           eligibility_errors.add(:base, ineligible_message_ref) unless eligible_referred?(order)
           eligibility_errors.empty?
         end
@@ -21,14 +23,14 @@ module Spree
           order.user.referred?
         end
 
-
-        def selected_operator_max
-          preferred_operator_max == 'lte' ? :<= : :<
+        def completed_orders(order)
+          order.user ? order.user.orders.complete : orders_by_email
         end
 
-        def selected_operator_min
-          preferred_operator_min == 'gte' ? :>= : :>
+        def orders_by_email
+          Spree::Order.where(email: email).complete
         end
+
       end
     end
   end
