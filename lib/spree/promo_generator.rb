@@ -96,7 +96,6 @@ module Spree
         promotion: promotion,
         type: 'Spree::Promotion::Rules::User'
       )
-
       Spree::PromotionRuleUser.create!(
         user: options[:user],
         promotion_rule: rule
