@@ -28,8 +28,7 @@ module SpreeOrderReward
     config.after_initialize do
       Rails.application.config.spree.order_rewards
       Rails.application.config.spree.order_rewards.rules.concat [
-        Spree::OrderReward::Rules::ItemTotal,
-        Spree::OrderReward::Rules::ReferredTransaction
+        Spree::OrderReward::Rules::ItemTotal
       ]
       Rails.application.config.spree.order_rewards.actions.concat [
         Spree::OrderReward::Actions::PromoCode,
@@ -37,8 +36,7 @@ module SpreeOrderReward
         Spree::OrderReward::Actions::PromoCodeTier,
         Spree::OrderReward::Actions::StoreCredit,
         Spree::OrderReward::Actions::StoreCreditForEvery,
-        Spree::OrderReward::Actions::StoreCreditTier,
-        Spree::OrderReward::Actions::StoreCreditReferral
+        Spree::OrderReward::Actions::StoreCreditTier
       ]
     end
   end

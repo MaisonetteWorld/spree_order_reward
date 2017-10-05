@@ -13,7 +13,3 @@ en:
         description: 'Promo Code Give X Between A-B'
       promo_code_for_every:
         description: 'Promo Code Give X For Every Y'
-      store_credit_referral:
-          description: 'Credit Referring User'
-      promo_code_referral:
-          description: 'Promo Code for Referred User'
